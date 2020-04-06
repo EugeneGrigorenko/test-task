@@ -16,4 +16,8 @@ class Post < ApplicationRecord
       user_post_record.user_id == user_id && user_post_record.reaction == UserPostReaction::LIKED
     end
   end
+
+  def likes_count
+    reactions.count { |user_post| user_post.reaction == UserPostReaction::LIKED }
+  end
 end
