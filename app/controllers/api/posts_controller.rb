@@ -5,10 +5,14 @@ module Api
     before_action :authenticate_user!
 
     def index
-      posts = Post.include(:reactions).page(params[:page])
+      posts = Post.includes(:reactions).page(params[:page])
 
-      meta = { total_pages: posts.total_pages }
-      render json: PostSerializer.new(posts, { meta: meta }).serialized_json
+      options = {
+        meta: { total_pages: posts.total_pages },
+        params: { current_user: current_user }
+      }
+
+      render json: PostSerializer.new(posts, options).serialized_json
     end
 
     def react
