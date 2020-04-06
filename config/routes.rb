@@ -5,4 +5,8 @@ Rails.application.routes.draw do
   namespace 'auth' do
     get :confirmation_success, to: 'info#confirmation_success'
   end
+
+  namespace 'api' do
+    resources :posts, only: %i[create index] #  reaction
+  end
 end
