@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   end
 
   namespace 'api' do
-    resources :posts, only: %i[create index] #  reaction
+    resources :posts, only: %i[create index] do
+      member do
+        put :react
+      end
+    end
   end
 end

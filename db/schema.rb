@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_06_054855) do
+ActiveRecord::Schema.define(version: 2020_04_06_083409) do
 
   create_table "posts", force: :cascade do |t|
     t.string "title", null: false
@@ -19,6 +19,16 @@ ActiveRecord::Schema.define(version: 2020_04_06_054855) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["author_id"], name: "index_posts_on_author_id"
+  end
+
+  create_table "user_post_reactions", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "post_id", null: false
+    t.integer "reaction", limit: 1, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id"], name: "index_user_post_reactions_on_post_id"
+    t.index ["user_id"], name: "index_user_post_reactions_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -45,4 +55,6 @@ ActiveRecord::Schema.define(version: 2020_04_06_054855) do
   end
 
   add_foreign_key "posts", "users", column: "author_id"
+  add_foreign_key "user_post_reactions", "posts"
+  add_foreign_key "user_post_reactions", "users"
 end

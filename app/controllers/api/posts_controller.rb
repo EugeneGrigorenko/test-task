@@ -5,16 +5,22 @@ module Api
     before_action :authenticate_user!
 
     def index
-      posts = Post.page(params[:page])
+      posts = Post.include(:reactions).page(params[:page])
 
       meta = { total_pages: posts.total_pages }
       render json: PostSerializer.new(posts, { meta: meta }).serialized_json
     end
 
-    # private
+    def react
+      post = Post.find_by(id: params[:id])
 
-    # def post_params
-    #   require
-    # end
+      unless post
+        render(json: { error: 'Post not found' }, status: 404) && return
+      end
+
+      UserPostReactionsService.new(current_user, post, params[:reaction]).call
+
+      render json: PostSerializer.new(post).serialized_json
+    end
   end
 end

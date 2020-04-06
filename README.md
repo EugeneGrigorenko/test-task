@@ -1,24 +1,14 @@
-# README
+# Set Up
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Run in your console:
+- bundle install
+- bunlde exec rails db:setup
+- bunlde exec rails s
+- make API calls to localhost:3000(I used postman)
 
-Things you may want to cover:
+Run bundle exec rspec spec to check out unit tests
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Notes
+  Not creating "Un"-like and "Un"-dislike funcrionality for now, 'cause it's not a requirement.
+  To do so, I think, I'd add a 'rollback' reaction to UserPostReactionsService. And destroy
+  UserPostReaction record with matched reaction
