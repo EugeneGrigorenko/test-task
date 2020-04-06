@@ -12,3 +12,6 @@ Run bundle exec rspec spec to check out unit tests
   Not creating "Un"-like and "Un"-dislike funcrionality for now, 'cause it's not a requirement.
   To do so, I think, I'd add a 'rollback' reaction to UserPostReactionsService. And destroy
   UserPostReaction record with matched reaction
+
+# Docs
+  See api_doc.yml for endpoints documentation

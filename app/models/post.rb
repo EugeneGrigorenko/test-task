@@ -6,6 +6,8 @@ class Post < ApplicationRecord
   belongs_to :author, class_name: 'User'
   has_many :reactions, class_name: 'UserPostReaction'
 
+  validates :title, presence: true
+
   def liked_by?(user_id)
     # use array here, assuming, include was used, so data is not requested for each record
 

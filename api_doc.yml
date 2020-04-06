@@ -1,0 +1,102 @@
+sign_up:
+  request:
+    method: POST
+    path: api/auth
+    params:
+      email: 'String*'
+      password: 'String*'
+      password_confirmation: 'String*'
+      first_name: 'String'
+      last_name: 'String'
+  response:
+    body:
+      status: 'String' # success/failure
+      data: # created user
+        id: 'Integer'
+        first_name: 'String'
+        last_name: 'String'
+        eamil: 'String'
+        created_at: 'Timestamp'
+    headers:
+      access-token: Verification token for user
+      client: Token for multiple simultaneous sessions
+      uid: Uniq user identifier
+
+sign_in:
+  request:
+    method: POST
+    path: api/auth/sign_in
+    params:
+      email: 'String*'
+      password: 'String*'
+  response:
+    body:
+      data:
+        id: 'Integer'
+        first_name: 'String'
+        last_name: 'String'
+        eamil: 'String'
+        created_at: 'Timestamp'
+    headers:
+      access-token: Verification token for user
+      client: Token for multiple simultaneous sessions
+      uid: Uniq user identifier
+
+posts_index:
+  request:
+    method: GET
+    path: api/posts
+    params:
+      page: 'Integer' # number of page for pagination
+    headers:
+      access-token: Verification token for user
+      client: Token for multiple simultaneous sessions
+      uid: Uniq user identifier
+  response:
+    body:
+      meta:
+        total_pages: 'Integer' # total number of pages
+      data[]:
+        id: 'Integer'
+        type: 'String'
+        attributes:
+          title: 'String'
+          body: 'String'
+          created_at: 'Timestamp'
+          liked_by_current_user: 'Boolean'
+          likes_count: 'Integer'
+        relationships:
+          author:
+            data:
+              id: 'Integer' # id of the user who has created the post
+    headers:
+      access-token: Verification token for user
+      client: Token for multiple simultaneous sessions
+      uid: Uniq user identifier
+
+react:
+  request:
+    method: PUT
+    path: api/posts/:id/react
+    params:
+      id: 'Integer' # post id
+      reaction: 'String' # like/dislike
+    headers:
+      access-token: Verification token for user
+      client: Token for multiple simultaneous sessions
+      uid: Uniq user identifier
+  response:
+    body:
+      data:
+        id: 'Integer'
+        type: 'String'
+        attributes:
+          title: 'String'
+          body: 'String'
+          created_at: 'Timestamp'
+          liked_by_current_user: 'Boolean'
+          likes_count: 'Integer'
+        relationships:
+          author:
+            data:
+              id: 'Integer' # id of the user who has created the post
